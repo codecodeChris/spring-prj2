@@ -5,5 +5,5 @@ public class ItemOrderFactory {
         System.out.println("调用实例工厂方法创建bean...");
         return new ItemOrder();
     }
-    //00000000
+    //00000
 }
