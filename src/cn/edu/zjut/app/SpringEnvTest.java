@@ -36,6 +36,7 @@ public class SpringEnvTest {
         EmailEvent ele = new EmailEvent("hello", "spring_test@zjut.edu.cn", "this is a test");
         ctx.publishEvent(ele);
         //ooooooooooooo
+        //55555
 
     }
 }
