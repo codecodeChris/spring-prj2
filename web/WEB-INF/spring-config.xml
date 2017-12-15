@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd">
+    <bean id="item1" class="cn.edu.zjut.bean.Item" scope="singleton">
+        <constructor-arg index="0" type="java.lang.String" value="978-7-121-12345-1"/>
+        <constructor-arg index="1" type="java.lang.String" value="JAVAEE技术实验指导教程"/>
+        <constructor-arg index="2" type="java.lang.String"
+                         value="WEB程序设计知识回顾、轻量级JAVAEE应用框架、企业级EJB组 件编程技术、JAVAEE综合应用开发"/>
+        <constructor-arg index="3" type="double" value="19.95"/>
+    </bean>
+    <bean id="item2" class="cn.edu.zjut.bean.Item" scope="prototype">
+        <constructor-arg index="0" type="java.lang.String" value="978-7-121-12345-2"/>
+        <constructor-arg index="1" type="java.lang.String" value="JAVAEE技术"/>
+        <constructor-arg index="2" type="java.lang.String" value="Struts框架、Hibernate框架、Spring框架、会话Bean、实体 Bean、消息驱动Bean"/>
+        <constructor-arg index="3" type="double" value="29.95"/>
+    </bean>
+    <bean id="itemorder1" class="cn.edu.zjut.bean.ItemOrder" init-method="init" destroy-method="predestroy">
+        <property name="numItems" value="1"/>
+        <property name="item" ref="item1"/>
+    </bean>
+    <bean id="itemorder2" class="cn.edu.zjut.bean.ItemOrderFactory" factory-method="createItemOrder" factory-bean="itemorderFactory">
+        <property name="numItems" value="1"/>
+        <property name="item" ref="item1"/>
+    </bean>
+    <bean id="shoppingcart" class="cn.edu.zjut.bean.ShoppingCart">
+        <property name="itemOrdered">
+            <list>
+                <ref bean="itemorder1"/>
+                <ref bean="itemorder2"/>
+            </list>
+        </property>
+    </bean>
+    <bean id="itemorderFactory" class="cn.edu.zjut.bean.ItemOrderFactory"/>
+    <bean id="messageSource" class="org.springframework.context.support.ResourceBundleMessageSource">
+        <property name="basenames">
+            <list>
+                <value>cn.edu.zjut.local.message</value>
+            </list>
+        </property>
+    </bean>
+    <bean class="cn.edu.zjut.listener.EmailNotifier"/>
+</beans>
